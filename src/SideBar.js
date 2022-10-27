@@ -5,7 +5,7 @@ import Content from "./Content";
 
 export const Side = () => {
   return (
-    <div>
+    <>
       <nav
         id="sidebarMenu"
         className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
@@ -22,7 +22,8 @@ export const Side = () => {
           </ul>
         </div>
       </nav>
-    </div>
+
+    </>
   );
 };
 
@@ -31,8 +32,11 @@ function Landing() {
     <>
       <div className="container-fluid">
         <div className="row">
-          <Side />
-          <Content />
+
+          <Side />    
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <Content />
+       </main>
         </div>
       </div>
     </>

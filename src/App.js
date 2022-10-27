@@ -11,8 +11,6 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import signature2 from './signature2.png'
 import Mails from './Mails'
 import NavBar from './NavBar';
-import Select from 'react-select'
-import userEvent from '@testing-library/user-event';
 import Button from 'react-bootstrap/Button';
 
 
@@ -98,7 +96,21 @@ function SignOut() {
 }
 
 
+function sonia() {
+  return (     <div >
+              <img src={signature2} className='image' alt="signature" />
+               <br/>  <div className="anarana" > <strong> Zolalaina ANDRIANANTENAINA  </strong></div>
+                             <div className="anarana2" > Support Flexible Workspace Service </div>
+               <div className="orange" >Orange Cloud for Business</div>
+                    <div className="adiresy" > helpdesk@neocles.com</div>
+               <br /> 
+ <div className="norminaly">Orange Business Service SA</div>
+              <div className="norminaly">Immeuble Terra Nova II - 15 rue Hendri Rol-Tanguy 93558 Montreuil</div>
+               
+                        </div >
+                         )
 
+  }
 
 
 function ChatRoom() {
@@ -126,6 +138,7 @@ function ChatRoom() {
   const [action2Value, setaction2Value] = useState('');
   const [action3Value, setaction3Value] = useState('');
   const [resultatValue, setresultatValue] = useState('');
+  const [refValue, setrefValue] = useState('');
 
 
   const sendMessage = async (e) => {
@@ -147,7 +160,8 @@ function ChatRoom() {
         action1: action1Value,
         action2: action2Value,
         action3: action3Value,
-        resultat: resultatValue
+        resultat: resultatValue,
+        refValue: refValue
     })
     setDemValue('');
     setFormValue('');
@@ -160,7 +174,7 @@ function ChatRoom() {
     setaction2Value('');
     setaction3Value('');
     setresultatValue('');
-    
+    setrefValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -275,11 +289,22 @@ function ChatRoom() {
                                                             required
                                                             onChange={e => setresultatValue( e.target.value )}
                                                         />
+
                                                     </div>
                         
                         
                                                 </div>
                                                 <div className="form-group">
+                                                <input
+                                                          value={refValue}
+                                                            type="text"
+                                                            className= "form-group mx-sm-3 mb-2"
+                                                            placeholder="Lien image"
+                                                            required
+                                                            onChange={e => setrefValue( e.target.value )}
+                                                        />
+                                                          </div>
+                                                          <div className="form-group">
                                                   <button type="submit" className="btn btn-sm btn-danger">Compiler</button>
                         
                               </div>
@@ -305,26 +330,12 @@ function ChatRoom() {
 
 
 function ChatMessage(props) {
-  const { photoURL,uid, nom, demande, ticket, serveur, console, compte, action1, action2, action3, resultat } = props.message;
+  const { photoURL,refValue,uid, nom, demande, ticket, serveur, console, compte, action1, action2, action3, resultat } = props.message;
 
   const formatPseudo = pseudo => /[aeiouy]/i.test(demande[0]) ? `l'${demande}` : `la ${demande}`
   const formatP = pseudo => /[aeiouy]/i.test(demande[0]) ? `d'${demande}` : `de ${demande}`
   
-function sonia() {
-  return (     <div >
-              <img src={signature2} className='image' alt="signature" />
-               <br/>  <div className="anarana" > <strong> Zolalaina ANDRIANANTENAINA  </strong></div>
-                             <div className="anarana2" > Support Flexible Workspace Service </div>
-               <div className="orange" >Orange Cloud for Business</div>
-                    <div className="adiresy" > helpdesk@neocles.com</div>
-               <br /> 
- <div className="norminaly">Orange Business Service SA</div>
-              <div className="norminaly">Immeuble Terra Nova II - 15 rue Hendri Rol-Tanguy 93558 Montreuil</div>
-               
-                        </div >
-                         )
 
-  }
     
   const messageClass = uid === auth.currentUser.uid ? 'Admin' : `${firebase.auth().currentUser.email}`;
 
@@ -333,7 +344,7 @@ function sonia() {
  <div className='container-fluid'>
         <div className='row mt-5'>
 
-        <div className="col-12 unfluid"> 
+        <div className="col-10 justify-content-space-between unfluid"> 
         <div className={`d-block$`}>
       
     </div>
@@ -341,7 +352,7 @@ function sonia() {
           <strong>{messageClass} </strong> 
         <br />
           <br />
-          <code>
+          <code className="col-10 ml-4 " >
        
 
        
@@ -355,20 +366,17 @@ function sonia() {
            {`  <li style="margin-bottom:10px;" >Actions menées</li>`}  <br />
            {`  <ul>`}  <br />
           
-         {`     <div style="color: #556B2F;style="margin-bottom:15px;"> ✅ <strong style="margin-bottom:15px;"> Sur la console AD:</strong>`} 
-           {`   <ul>`} 
+         {`     <div style="color: #556B2F;style="margin-bottom:15px;"> ✅ <strong style="margin-bottom:15px;"> Sur la console AD:</strong>`}   <br />
+           {`   <ul>`}   <br />
          {`        <div style="margin-top:15px;">✔ `} {action1};{`</div>`}  <br />
              {`        <div style="margin-top:15px;">✔ `} {action2};{`</div>`}  <br />
-             {`  <div><img  style="border : 1px outset ; margin:25px 0;"  src="https://firebasestorage.googleapis.com/v0/b/storage-imgg.appspot.com/o/A65_RH.PNG?alt=media&token=01b32e90-099e-48bd-8efa-637b39ecfabf" alt="A65" border="0"></div>`} 
+             {`  <div><img  style="border : 1px outset ; margin:25px 0;"`}{`src="`}{refValue}{`" alt="A65" border="0"></div>`} 
        {`     </ul>`}  <br />
          {`    </div>`}  <br />
          {`    <div style="color: #556B2F;">✅<strong style="margin-bottom:15px;"> Sur console NAS via mmc: </strong>`}  <br />
            {`    <ul>`}  <br />
            {`      <div style="margin-top:15px;">✔ `} {action3};{`</div>`}  <br />
-               {`    <a style="margin-bottom:15px;"><img  style="border : 1px outset ; margin:25px 0;"  src="https://firebasestorage.googleapis.com/v0/b/storage-imgg.appspot.com/o/doirtESATAvant.PNG?alt=media&token=934bb8fa-7341-4c00-91e6-2e3d86be1551" alt="A65" border="0"> </a> `}   <br />
-             {`          <a><img  style="border : 1px outset ; width:400px; height:50vh; margin:25px 0;"  src="https://firebasestorage.googleapis.com/v0/b/storage-imgg.appspot.com/o/Droiattribu%C3%A9.PNG?alt=media&token=69f453a4-06b9-4ac0-ae3c-737aff462e97" alt="A65" border="0"></a>`}  <br />
                    {`       <div style="margin-bottom:15px;">✔ `} {resultat};{`</div>`}  <br />
-               {`      <div><img  style="border : 1px outset ; width:300px; height:50vh; margin:25px 0;"  src="https://firebasestorage.googleapis.com/v0/b/storage-imgg.appspot.com/o/A65Bon.PNG?alt=media&token=744e0c49-3753-4dbc-9227-300b15d13fb6" alt="A65" border="0"></div>`}  <br />
              {`    </ul>`}  <br />
            {`     </ul>`}  <br />
              {`     </ol>`}  <br />
@@ -388,14 +396,14 @@ function sonia() {
                 <div className="col-md-6">
         <div className="h-100 p-5 bg-light rounded-3">
           <div><strong>Mail de suspension</strong></div>
-            <div>Bonjour M. { nom} ,</div>
+            <div>Bonjour { nom} ,</div>
             <br/>
                                 <div>Je fais suite à votre demande sous la référence "{ ticket}" par rapport à {formatPseudo(demande) }</div>
                               
-            <br/><div>Le nécessaire a été fait concernant votre demande. Après avoir fait la {action1}, la {action2} et la {action3}.</div>
-              <br />       <div>Après vérification, le resultat est
+            <br/><div>Le traitement de votre demande est effectif.</div>
+              <br />       <div>Des tests et vérification ont été réalisés de notre côté. Tout est bien fonctionnel.
                 {resultat} </div>
-                            <br/>    <div>Pourriez-vous s’il vous plaît effectuer un test ?</div>
+                            <br/>    <div>De votre côté, pourriez-vous s’il vous plaît effectuer un test et nous faire un retour ?</div>
                                 <div>En vous remerciant, par avance de votre collaboration.</div>
                                <br/>
             <div>Dans l’attente, je procède à la suspension de votre ticket.</div>
@@ -411,9 +419,10 @@ function sonia() {
         <div className="h-100 p-5 bg-light border rounded-3">
                                 <div><strong>Mail de fin de suspension après plusieurs relances</strong></div>
                               <br/>  <div>Bonjour M. { nom},</div>
-            <br />   <div>Je reviens vers vous par rapport à votre demande {formatP(demande)} ticket sous la référence "{ ticket}" </div>
-                             <br/>   <div>Le nécessaire a été effectué concernant votre demande.</div>
-                            <br/>    <div>Sauf erreur de ma part, nous n’avons pas encore reçu votre retour à ce sujet malgré plusieurs relances par mail et par téléphone. </div>
+            <br />   <div>Je reviens vers vous par rapport à votre demande de {formatP(demande)} ticket sous la référence "{ ticket}" </div>
+                             <br/>   <div>Le nécessaire est fait concernant votre demande.</div>
+                            <br/>    <div>Sauf erreur de ma part, nous n’avons pas encore reçu votre retour à ce sujet. </div>
+                            <div>Si le moindre souci survienne, n'hésitez surtout pas à nous solliciter, nous restons entièrement à votre disposition. </div>
                            <br/>     <div>De ce fait, nous mettons fin à la suspension de ce ticket pour clôture.</div>
                           <br/>      <div>Je vous remercie de nous avoir sollicité, je me tiens à votre disposition pour d’éventuelles questions.</div>
                         <br />    <div>Cordialement,</div>
@@ -429,11 +438,11 @@ function sonia() {
             <br/>
                                 <div>Je fais suite à votre demande sous la référence "{ticket}" par rapport à {formatPseudo(demande) }</div>
                               
-            <br/><div>Le nécessaire est fait au sujet de votre demande. ci-suivant les actions effectuées: {action1}</div>
+            <br/><div>Le traitement a pris fin. Des tests et vérification ont été réalisés de notre côté.</div>
                          <br/>       <div>- { action1} </div>
               <div>- {action2} </div>
               <div>- { action3} </div>
-                            <br/>    <div>Le résultat est concluant de mon côté. Pourriez-vous s’il vous plaît effectuer un test ?</div>
+                            <br/>    <div>Tout est bien fonctionnel. De votre côté, pouvez-vous s'il vous plaît effectuer un test et nous faire un retour par la suite ? ?</div>
                                 <div>En vous remerciant, par avance de votre collaboration.</div>
                                <br/>
             <div>Dans l’attente, je procède à la suspension de votre ticket.</div>
@@ -451,7 +460,7 @@ function sonia() {
                               <br/>  <div>Bonjour M. {nom},</div>
                              <br/>   <div>Je reviens vers vous par rapport à votre demande {formatP(demande)} ticket sous la référence " { ticket} " </div>
                              <br/>   <div>Le nécessaire a été effectué concernant votre demande.</div>
-              <br />    <div>Suite à votre confirmation, la {demande} est effective</div>
+              <br />    <div>Suite à votre confirmation, {formatP(demande)} est effective</div>
                            <br/>     <div>De ce fait, je me permets de mettre fin à la suspension de ce ticket pour clôture.</div>
                           <br/>      <div>Je vous remercie de nous avoir sollicité, je me tiens à votre disposition pour d’éventuelles questions.</div>
                         <br />    <div>Cordialement,</div>
@@ -464,7 +473,7 @@ function sonia() {
                 <div className="col-md-6">
         <div className="h-100 p-5 bg-light border rounded-3">
       <div><strong>Mail de cloture</strong></div>
-                              <br/>  <div>Je fais suite à votre demande sous la référence "{ ticket} " au sujet de la demande {formatPseudo(demande) }.</div>
+                              <br/>  <div>Je fais suite à votre demande sous la référence <strong>{ ticket}</strong>  au sujet de "{formatPseudo(demande) }".</div>
                               <br/>  <div>{ demande} est bien effective. </div>
                              <br/>   <div>De ce fait, je procède donc à la clôture de ce ticket.</div>
                              <br/>   <div>Je vous remercie d’avoir sollicité le support Orange Business Services et reste à votre disposition en cas de besoin.</div>
@@ -715,17 +724,15 @@ function Alertes() {
 
 
   
-  const dummy = useRef();
-  const appelsRef = firestore.collection('Alertes');
-  const query = appelsRef.orderBy('createdAt').limit(25);
+  const alerteRef = firestore.collection('Alertes');
+  const query = alerteRef.orderBy('createdAt').limit(25);
 
-  const [appels] = useCollectionData(query, { idField: 'id' });
-
+  const [alertes] = useCollectionData(query, { idField: 'id' });
   const [formName, setFormName] = useState('');
   const [LogValue, setLogValue] = useState('');
   const [SocValue, setSocValue] = useState('');
   const [ticketValue, setticketValue] = useState('');
-  const [Pb, setPbValue] = useState([]);
+  const [PbValue, setPbValue] = useState('');
  
 
 
@@ -734,15 +741,15 @@ function Alertes() {
 
     const { uid, photoURL } = auth.currentUser;
 
-    await appelsRef.add({
+    await alerteRef.add({
       nom: formName,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
       Logs: LogValue,
       societe: SocValue,
-        ticket: ticketValue,
-      Pb: Pb
+      ticket: ticketValue,
+      Pb: PbValue
 
    
     
@@ -750,10 +757,10 @@ function Alertes() {
     setFormName('');
     setLogValue('');
     setticketValue('');
-     setSocValue('');
+    setSocValue('');
     setPbValue('');
     
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+
   }
 
 
@@ -811,65 +818,108 @@ function Alertes() {
 
                         </div>
                         <div className="form-group">
-                          <button type="submit" className="btn btn-sm btn-danger">Compiler</button>
+                          
+
+      </div>
+                        <div className="form-group">
+                          <button type="submit" className="btn btn-sm btn-danger mb-5">Compiler</button>
 
       </div>
       </div>
 
       
-       <main>
 
-      {appels && appels.map(msg => <Alerterecue key={msg.id} message={msg} />)}
-
-      <span ref={dummy}></span>
-    </main>
     </form>
+    <main>
+
+{alertes && alertes.map(msg => <Alerterecue key={msg.id} message={msg} />)}
+
+</main>
 
   </>)
 }
 
 
 function Alerterecue(props) {
-  const { nom, Logs, ticket, societe } = props.message;
+  const { nom, Logs, ticket, societe,Pb } = props.message;
 
 
   return (
   <>
- 
+
+<span>{ticket}  </span><br/> {societe}
+<br/>
+<div >
+  <code className="col-12 ml-5 " >
+       
+  
+       
+       {`<div style="font-family: 'Times New Roman', sans-serif !important; font-size: 12pt; ">`}  <br />
+       {`<div style="margin-top:15px;">Objet du traitement<strong style="color: #FF8C00;margin-bottom:15px"> : Alerte`} {nom}{`</strong></div>`}  <br />
+       {` <ol>`}  <br />
+       {`<li style="margin-bottom:15px;">Accès au serveur<strong style="color: #3b5998;margin-bottom:15px"> : `}  { Logs} {`</strong></li>`}  <br />
+       {`   <li style="margin-bottom:15px;">Outil<strong style="color: #3b5998;"> :`}  mRemoteNG {`</strong></li>`}  <br />
+      {`   <li style="margin-bottom:15px;">Compte<strong style="color: #3b5998;"> :`} Neofed\OBS {`</strong></li>`}  <br />
+      {`    <li style="margin-bottom:15px;">Outils de gestion<strong style="color: #3b5998;"> : CMD (services.msc ) && Task Manager  </strong></li>`}  <br />
+        {`  <li style="margin-bottom:10px;" >Actions menées</li>`}  <br />
+        {`  <ul>`}  <br />
+       
+      {`     <div style="color: #556B2F;style="margin-bottom:15px;"> ✅ <strong style="margin-bottom:15px;"> Sur la console AD:</strong>`}   <br />
+        {`   <ul>`}   <br />
+      {`        <div style="margin-top:15px;">✔ Vérification du statut de l'alerte 👉 arrêté </div>`}  <br />
+          {`        <div style="margin-top:15px;">✔ Redémarrage du service`} {Pb}.{`</div>`}  <br />
+    {`     </ul>`}  <br />
+      {`    </div>`}  <br />
+      {`    <div style="color: #556B2F;">✅<strong style="margin-bottom:15px;"> Sur console NAS via mmc: </strong>`}  <br />
+        {`    <ul>`}  <br />
+        {`      <div style="margin-top:15px;">✔ Vérification de l'état du service après quelques minutes 👉 statut Running </div>`}  <br />
+                {`       <div style="margin-bottom:15px;">✔ Service fonctionnel </div>`}  <br />
+          {`    </ul>`}  <br />
+        {`     </ul>`}  <br />
+          {`     </ol>`}  <br />
+          {`   </div>`}  <br />
+      {`</div>`}  <br /> 
+
     
- <div  className="text-left mt-5"> 
+           </code>
+           </div>
+ <div className="row align-items-md-stretch">
+
   
                         <div className="col-md-6">
         <div className="h-100 p-5 bg-light border rounded-2">
-                                <div><strong>Mail de résolution d'alertes</strong></div>
+                                <div><strong>Mail de résolution d'alertes pour {societe}</strong></div>
         <br />
-        Je fais suite à l'alerte répértoriée sous le ticket "{ticket}" sur le serveur {Logs} pour la société {societe}
-                              <br/>  <div> Après le redemarrage et la vérification, l'alerte n'est plus d'acualité!, <strong></strong></div>
+        Je fais suite à l'alerte {nom} not running répértoriée sous le ticket "{ticket}" sur le serveur {Logs}.
+                              <br/>  <div> Après le redemarrage du service en question et la vérification de son statut sur zabbix et le serveur, l'alerte n'est plus d'acualité. <strong></strong></div>
         <br />   <div>De ce fait, je me permets de clôre le présent ticket.
          
                              <br/>   <div>Je reste à votre disposition en cas de besoin.</div>
         <br />   <div>Cordialement,</div>
-         <div >
-              <img src={signature2} className='image' alt="signature" />
-               <br/>  <div className="anarana" > <strong>ANDRIANANTENAINA Zolalaina </strong></div>
-                            <br/>    <div className="anarana2" > Support Flexible Workspace Service </div>
-               <div className="orange" >Orange Cloud for Business</div>
-              <br />      <div className="adiresy" > helpdesk@neocles.com</div>
-               <br /> 
- <div className="norminaly">Orange Business Service SA</div>
-              <div className="norminaly">Immeuble Terra Nova II - 15 rue Hendri Rol-Tanguy 93558 Montreuil</div>
-               
-                        </div >
+        {sonia()}
                         </div >
             </div >
+{/* A droite*/}
+
+
           </div >
-          </div >
-        
+          <div className="col-md-6">
+        <div className="h-100 p-5 bg-light border rounded-3">
+                                <div><strong>Mail de fin d'alerte 2.0 pour {societe}</strong></div>
+                          
+            <br />   <div>Je fais suite à l’alerte {nom} remontée par Zabbix repertoriée sur le ticket sous la référence "{ ticket}" </div>
+                             <br/>   <div>Après le redémarrage du service via le gestionnaire des tâches, l'alerte n'est plus d'actualité et le service en question est en statut « running ».</div>
+                             <br/>   <div>A cet effet, je procède à la clôture de ce ticket.</div>
+                           <br/>     <div>Je reste disponible en cas de besoin.</div>
+                        <br />    <div>Cordialement,</div>
+                      {sonia()}
+           </div>
+    </div>
+          </div>
       
     </>)
     
 }
-
 
 
 
